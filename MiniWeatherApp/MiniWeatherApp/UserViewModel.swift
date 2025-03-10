@@ -30,7 +30,6 @@ class UserViewModel: ObservableObject {
                 switch completion {
                 case .failure(let error):
                     self?.error = error
-                    print("Error decoding JSON: \(error)")
                 case .finished:
                     break
                 }

@@ -71,14 +71,27 @@ class MapViewController: UIViewController {
 
 
 
-struct MapView: UIViewControllerRepresentable {
+struct MapView: UIViewRepresentable {
     let coordinates: Coordinates
     
-    func makeUIViewController(context: Context) -> MapViewController {
-        MapViewController(coordinates: coordinates)
+    func makeUIView(context: Context) -> MKMapView {
+        MKMapView(frame: .zero)
     }
     
-    func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
-        // Обновление не требуется, так как координаты передаются при создании
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        let coordinate = CLLocationCoordinate2D(
+            latitude: Double(coordinates.latitude) ?? 0,
+            longitude: Double(coordinates.longitude) ?? 0
+        )
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        uiView.addAnnotation(annotation)
+        
+        let region = MKCoordinateRegion(
+            center: coordinate,
+            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        )
+        uiView.setRegion(region, animated: true)
     }
 }

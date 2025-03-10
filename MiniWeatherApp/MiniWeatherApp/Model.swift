@@ -5,8 +5,6 @@
 //  Created by Денис Ефименков on 10.03.2025.
 //
 
-import Foundation
-
 struct UserResponse: Codable {
     let results: [User]
 }
@@ -34,12 +32,18 @@ struct Location: Codable {
     let city: String
     let state: String
     let country: String
-    let postcode: String
+    let postcode: Int
+    let coordinates: Coordinates
 }
 
 struct Street: Codable {
     let number: Int
     let name: String
+}
+
+struct Coordinates: Codable {
+    let latitude: String
+    let longitude: String
 }
 
 struct Dob: Codable {
